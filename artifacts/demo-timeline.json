@@ -1,132 +1,132 @@
 {
-  "duration_seconds": 1132.979,
+  "duration_seconds": 1137.509,
   "caption_alignment": "Approximate sentence timing by word count",
   "chapters": [
     {
       "chapter": 1,
       "title": "Personal health, simulated.",
       "start_seconds": 0.0,
-      "duration_seconds": 59.422,
-      "narration_seconds": 56.922
+      "duration_seconds": 64.153,
+      "narration_seconds": 61.653
     },
     {
       "chapter": 2,
       "title": "A chart tells only half the story.",
-      "start_seconds": 59.422,
+      "start_seconds": 64.153,
       "duration_seconds": 57.117,
       "narration_seconds": 54.617
     },
     {
       "chapter": 3,
       "title": "One focused healthcare use case.",
-      "start_seconds": 116.54,
+      "start_seconds": 121.27,
       "duration_seconds": 62.272,
       "narration_seconds": 59.772
     },
     {
       "chapter": 4,
       "title": "A working research workspace.",
-      "start_seconds": 178.811,
+      "start_seconds": 183.541,
       "duration_seconds": 57.964,
       "narration_seconds": 55.464
     },
     {
       "chapter": 5,
-      "title": "Daily data becomes a personal state.",
-      "start_seconds": 236.775,
-      "duration_seconds": 63.26,
-      "narration_seconds": 60.76
+      "title": "A new day. A reviewed update.",
+      "start_seconds": 241.505,
+      "duration_seconds": 63.369,
+      "narration_seconds": 60.869
     },
     {
       "chapter": 6,
       "title": "A model you can inspect.",
-      "start_seconds": 300.035,
+      "start_seconds": 304.875,
       "duration_seconds": 61.916,
       "narration_seconds": 59.416
     },
     {
       "chapter": 7,
       "title": "Updating the twin over time.",
-      "start_seconds": 361.951,
+      "start_seconds": 366.791,
       "duration_seconds": 62.546,
       "narration_seconds": 60.046
     },
     {
       "chapter": 8,
-      "title": "Explore a conditional future.",
-      "start_seconds": 424.497,
-      "duration_seconds": 61.293,
-      "narration_seconds": 58.793
+      "title": "Compare and keep useful hypotheses.",
+      "start_seconds": 429.337,
+      "duration_seconds": 59.998,
+      "narration_seconds": 57.498
     },
     {
       "chapter": 9,
-      "title": "Read the band, not just the line.",
-      "start_seconds": 485.791,
-      "duration_seconds": 62.964,
-      "narration_seconds": 60.464
+      "title": "Choose the lens. Keep the uncertainty.",
+      "start_seconds": 489.335,
+      "duration_seconds": 66.173,
+      "narration_seconds": 63.673
     },
     {
       "chapter": 10,
-      "title": "Explain the difference.",
-      "start_seconds": 548.755,
-      "duration_seconds": 63.354,
-      "narration_seconds": 60.854
+      "title": "Change one input. Inspect the response.",
+      "start_seconds": 555.508,
+      "duration_seconds": 66.023,
+      "narration_seconds": 63.523
     },
     {
       "chapter": 11,
-      "title": "Test against simpler answers.",
-      "start_seconds": 612.109,
-      "duration_seconds": 58.855,
-      "narration_seconds": 56.355
+      "title": "See the trend. Inspect the misses.",
+      "start_seconds": 621.531,
+      "duration_seconds": 60.311,
+      "narration_seconds": 57.811
     },
     {
       "chapter": 12,
       "title": "Measured prototype outcomes.",
-      "start_seconds": 670.964,
+      "start_seconds": 681.841,
       "duration_seconds": 59.695,
       "narration_seconds": 57.195
     },
     {
       "chapter": 13,
-      "title": "Try your own authorized fixture.",
-      "start_seconds": 730.659,
-      "duration_seconds": 64.429,
-      "narration_seconds": 61.929
+      "title": "Share the question. Export the evidence.",
+      "start_seconds": 741.537,
+      "duration_seconds": 62.63,
+      "narration_seconds": 60.13
     },
     {
       "chapter": 14,
       "title": "Simple architecture. Real endpoints.",
-      "start_seconds": 795.088,
+      "start_seconds": 804.167,
       "duration_seconds": 70.757,
       "narration_seconds": 68.257
     },
     {
       "chapter": 15,
       "title": "Validation beyond a screenshot.",
-      "start_seconds": 865.845,
-      "duration_seconds": 66.995,
-      "narration_seconds": 64.495
+      "start_seconds": 874.924,
+      "duration_seconds": 66.147,
+      "narration_seconds": 63.647
     },
     {
       "chapter": 16,
       "title": "Boundaries are part of the product.",
-      "start_seconds": 932.84,
+      "start_seconds": 941.071,
       "duration_seconds": 67.439,
       "narration_seconds": 64.939
     },
     {
       "chapter": 17,
       "title": "A credible path beyond the prototype.",
-      "start_seconds": 1000.28,
+      "start_seconds": 1008.51,
       "duration_seconds": 65.253,
       "narration_seconds": 62.753
     },
     {
       "chapter": 18,
-      "title": "Open the code. Reproduce the evidence.",
-      "start_seconds": 1065.532,
-      "duration_seconds": 67.447,
-      "narration_seconds": 64.947
+      "title": "Team Gimites. Reproducible by design.",
+      "start_seconds": 1073.763,
+      "duration_seconds": 63.746,
+      "narration_seconds": 61.246
     }
   ]
 }

@@ -24,10 +24,10 @@ def base(c,kicker,index):
     text(c,'PulseTwin',58,677,24,GREEN,font='OpenSans-Bold')
     text(c,kicker,58,604,12,GREEN,font='OpenSans-Bold')
     c.setStrokeColor(HexColor('#dce5d8'));c.line(58,55,1222,55)
-    text(c,'DIGITAL TWIN CHALLENGE 2026  /  RESEARCH PROTOTYPE  /  SYNTHETIC DATA',58,36,9,MUTED)
+    text(c,'TEAM GIMITES  /  DIGITAL TWIN CHALLENGE 2026  /  SYNTHETIC RESEARCH PROTOTYPE',58,36,9,MUTED)
     text(c,f'{index:02d}',1180,38,12,GREEN)
 
-out=ROOT/'docs/presentation.pdf';c=canvas.Canvas(str(out),pagesize=(W,H));c.setTitle('PulseTwin — Digital Twin Challenge 2026');c.setAuthor('PulseTwin contributors')
+out=ROOT/'docs/presentation.pdf';c=canvas.Canvas(str(out),pagesize=(W,H));c.setTitle('PulseTwin — Digital Twin Challenge 2026');c.setAuthor('Team Gimites')
 for i,(title,kicker,bullets,narration,img) in enumerate(SCENES,1):
     base(c,kicker,i)
     if img and (ROOT/'artifacts'/f'demo-{img}.png').exists():
@@ -50,17 +50,17 @@ c.save()
 
 c=canvas.Canvas(str(ROOT/'docs/architecture.pdf'),pagesize=(W,H));c.setTitle('PulseTwin system architecture');base(c,'SYSTEM ARCHITECTURE / IMPLEMENTED PROTOTYPE',1)
 text(c,'A transparent observation-to-scenario loop.',58,557,37,font='OpenSans-Bold')
-boxes=[(58,320,'01  Browser','HTML / CSS / JavaScript','Controls, SVG, CSV, JSON export'),(460,320,'02  API contract','FastAPI / Pydantic','Schema, bounds, consecutive dates'),(862,320,'03  Personal model','NumPy / Bayesian + Kalman','Fit, state, forecast, holdout')]
+boxes=[(58,320,'01  Browser','HTML / CSS / JavaScript','Compare, save settings, CSV, PDF export'),(460,320,'02  API contract','FastAPI / Pydantic','Schema, bounds, consecutive dates'),(862,320,'03  Personal model','NumPy / Bayesian + Kalman','Fit, state, forecast, holdout')]
 for x,y,a,b,d in boxes:
     c.setFillColor(HexColor('#eaf2df'));c.roundRect(x,y,360,150,12,fill=1,stroke=0)
     text(c,a,x+22,y+125,22,GREEN,font='OpenSans-Bold');text(c,b,x+22,y+82,17);text(c,d,x+22,y+43,13,MUTED,width=320)
 for x in [423,825]:
     c.setStrokeColor(HexColor(GREEN));c.setLineWidth(2);c.line(x,395,x+30,395);c.line(x+24,401,x+30,395);c.line(x+24,389,x+30,395)
 text(c,'REQUEST',58,275,12,GREEN,font='OpenSans-Bold');text(c,'Observations + hypothetical inputs + horizon -> validated request -> personal fit and state -> conditional trajectory + evidence',58,245,21,width=1160)
-text(c,'TRUST BOUNDARY',58,170,12,GREEN,font='OpenSans-Bold');text(c,'Local browser and server only. No database, authentication, live devices or external AI service. Reports contain input data. Use synthetic or authorized de-identified records.',58,140,18,MUTED,width=1160)
+text(c,'TRUST BOUNDARY',58,170,12,GREEN,font='OpenSans-Bold');text(c,'Local browser and server. Named settings only in browser storage; observations stay in memory. No authentication, live devices or external AI calls. Use authorized data.',58,140,18,MUTED,width=1160)
 c.showPage();base(c,'MODEL FLOW / EVALUATION SEPARATION',2)
 text(c,'One history. Two separate model fits.',58,550,40,font='OpenSans-Bold')
-for x,title,lines in [(58,'Scenario path',['All supplied history -> Bayesian coefficient posterior','Residual sequence -> Kalman state','Recent 7-day habits -> assumed gradual scenario','Mean + 95% predictive band -> contribution report']), (665,'Evaluation path',['Chronological training prefix only -> separate fit','Held-out daily habits -> conditional predictions','Held-out BP labels -> MAE and interval coverage','Last reading + training mean -> comparison baselines'])]:
+for x,title,lines in [(58,'Scenario path',['All supplied history -> Bayesian coefficient posterior','Residual sequence -> Kalman state','Recent 7-day habits -> assumed gradual scenario','Mean + selected predictive band -> contribution report']), (665,'Evaluation path',['Chronological training prefix only -> separate fit','Held-out daily habits -> conditional predictions','Held-out BP labels -> MAE and interval coverage','Last reading + training mean -> comparison baselines'])]:
     text(c,title,x,450,26,GREEN,font='OpenSans-Bold');y=395
     for s in lines:y-=text(c,s,x,y,20,width=540)+30
 text(c,'Important: no held-out BP label enters the evaluation fit. Known held-out habits make this conditional prediction, not prospective causal validation.',58,130,17,MUTED,width=1150)

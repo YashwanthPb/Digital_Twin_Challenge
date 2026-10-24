@@ -1,10 +1,10 @@
 # Narrated prototype walkthrough
 
-**Video:** [pulsetwin-demo.mp4](../artifacts/pulsetwin-demo.mp4) — approximately 18 minutes 53 seconds, 1280×720, H.264 video, AAC audio, embedded English captions.
+**Video:** [pulsetwin-demo.mp4](../artifacts/pulsetwin-demo.mp4) — 18 minutes 58 seconds (see `artifacts/demo-timeline.json` for chapter timing), 1280×720, H.264 video, AAC audio, embedded English captions.
 
 **Captions:** [demo.srt](../artifacts/demo.srt). **Chapter timing:** [demo-timeline.json](../artifacts/demo-timeline.json). **Transcript:** [demo-script.md](demo-script.md).
 
-This is a synthesized-voice presentation and narrated walkthrough of actual application captures, not a recording of a person or a live clinical session. Caption sentence timing is approximate. Screenshots are produced by driving the real app in Chromium; slides and narration explain implemented features, results and limitations.
+The v1.1 walkthrough includes Team Gimites and all ten research-workbench features. This is a synthesized-voice presentation and narrated walkthrough of actual application captures, not a recording of a person or a live clinical session. Caption sentence timing is approximate. Screenshots are produced by driving the real app in Chromium; slides and narration explain implemented features, results and limitations.
 
 ## Required publication step
 

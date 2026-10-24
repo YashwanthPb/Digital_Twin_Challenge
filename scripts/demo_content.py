@@ -1,21 +1,267 @@
-"""Presentation and narration source. Statements match the implemented prototype."""
-SCENES = [
-('Personal health, simulated.', 'PULSETWIN / DIGITAL TWIN CHALLENGE 2026', ['A personal blood-pressure model that updates with observations.', 'Explore scenarios. Inspect uncertainty. Export the evidence.', 'Open-source research prototype • Synthetic demonstration'], '''Welcome to PulseTwin, a personal blood pressure digital twin built for the Digital Twin Challenge. The central idea is simple: daily observations should help us ask better questions about possible futures. This prototype combines a working dashboard, an interpretable personal model, a daily state update, and an evidence report. In this walkthrough, we will follow a synthetic profile from observations to a scenario, inspect the model behind the curve, and test the workflow with an imported file. Every example uses generated data. No patient outcomes, clinical accuracy, or treatment benefits are claimed. The voiceover is synthesized, and the interface captures come from the running application. The source code, model card, architecture, tests, and presentation accompany the prototype so reviewers can reproduce the demonstration.''', None),
-('A chart tells only half the story.', '01 / THE PROBLEM', ['Daily readings are noisy and disconnected from daily habits.', 'Generic averages hide individual patterns.', 'A useful simulation must expose its assumptions.'], '''Imagine a person with three months of blood pressure readings, step counts, sleep notes, dietary estimates, and self-reported stress. A conventional chart can show a trend, but it cannot explain how these measurements fit together for that individual. A generic wellness score often hides the relationship behind a single number. PulseTwin explores a different interaction: make the personal model visible, let the user specify a hypothetical scenario, and show the uncertainty next to the result. This is a research problem rather than a promise to lower blood pressure. Many important drivers are unmeasured, and lifestyle variables can be correlated with each other. Our design treats those limitations as part of the product. The goal is to support informed questions, not to turn observational patterns into prescriptions.''', None),
-('One focused healthcare use case.', '02 / SCOPE AND USERS', ['Longitudinal cardiometabolic research and education.', 'Systolic blood pressure as the modeled outcome.', 'No diagnosis, medication advice or autonomous decisions.'], '''The selected use case is longitudinal cardiometabolic research and education, with systolic blood pressure as the single modeled outcome. A researcher or an authorized user can inspect how a person's observations relate to daily habits and explore a conditional future. We deliberately avoid a broad health score, disease diagnosis, medication recommendations, and automated clinical decisions. A narrow outcome makes the model easier to inspect and the prototype easier to validate. The application does not contain a physician workflow, electronic health record integration, or a live wearable connection. Those are possible future integrations, not features we claim today. The complete implemented loop is observation ingestion, validation, personal fitting, residual state updating, scenario simulation, and review. Keeping this scope explicit is essential to evaluating the submission fairly.''', None),
-('A working research workspace.', '03 / DASHBOARD WALKTHROUGH', ['Three synthetic profiles, each with 90 daily observations.', 'Current modeled SBP, scenario outcome and holdout error.', 'Visible provenance and research-only boundaries.'], '''Here is the running dashboard. The active profile is Asha, a fictional label attached to a deterministic synthetic dataset. The profile bar states the observation count and date range. Across the top, three cards separate current modeled systolic pressure, the chosen scenario at the selected horizon, and held-out prediction error. The current number is a model estimate at the most recent seven-day average habits; it is not simply the last cuff reading. The scenario number depends on the controls at the right. Prediction error comes from a separate chronological evaluation. Keeping these three concepts distinct prevents a future scenario from being mistaken for a measured reading or an accuracy guarantee. Notice also the persistent research notice and the synthetic data badge. These disclosures remain part of the normal workflow.''', 'overview'),
-('Daily data becomes a personal state.', '04 / OBSERVATION CONTRACT', ['Date, SBP, steps, sleep, sodium and stress.', '28–730 consecutive days; no silent gap filling.', 'JSON API and CSV import share the same schema.'], '''Each row contains an ISO date, systolic pressure in millimeters of mercury, daily steps, sleep hours, dietary sodium in milligrams, and stress on a zero to ten scale. The application accepts between twenty-eight and seven hundred thirty consecutive days. It checks both individual values and the sequence of dates. Duplicate dates, gaps, missing fields, non-finite numbers, and out-of-range values are rejected. These are software bounds, not recommendations for healthy behavior. We do not silently interpolate missing readings because doing so would introduce another modeling assumption that users might overlook. The browser sends CSV text to the API, which parses it into the same validated observation objects used by the JSON analysis endpoint. This shared contract keeps imported and synthetic workflows consistent and makes invalid-input behavior testable.''', None),
-('A model you can inspect.', '05 / BAYESIAN PERSONALIZATION', ['Four standardized habit features plus a personal intercept.', 'Gaussian priors stabilize small histories.', 'Posterior coefficients and covariance use closed-form NumPy algebra.'], '''The first modeling layer is Bayesian linear regression. Four standardized habit features and an intercept describe systolic pressure. Each person gets a separate fit. There is no pretrained neural network, external language model, or hidden population dataset. Gaussian priors regularize the coefficients so a small or correlated history does not lead to an unconstrained fit. The posterior mean and covariance are calculated directly using NumPy matrix operations. The prior values are illustrative engineering choices, not clinical effect sizes copied from a trial. In particular, the model does not prove that increasing one habit will cause a particular change in pressure. It estimates an association conditional on the recorded inputs. The repository contains the exact feature scales, prior values, equations, noise assumptions, and limitations in the model card.''', None),
-('Updating the twin over time.', '06 / THE LATENT STATE', ['Daily residuals update a scalar Kalman state.', 'New observations change the personal fit and current state.', 'Human-in-the-loop prototype; no live device synchronization.'], '''A static regression alone would not capture the concept of an updating twin. PulseTwin adds a scalar Kalman filter over the residual pressure after the regression prediction. This state represents slow unobserved drift without naming it as a specific disease mechanism. Each daily residual adjusts the current state using a Kalman gain, while process variance expresses additional uncertainty over time. When a new history is imported, the personal coefficients are refitted and the residual sequence is filtered again. This is a two-stage approximation, not a joint physiological state-space inference system. The covariance does not capture every dependency between coefficients and state. The implementation is a human-in-the-loop, data-driven twin prototype. It provides a repeatable observation and simulation loop, while continuous sensor synchronization and clinical feedback are explicitly future work.''', None),
-('Explore a conditional future.', '07 / SCENARIO STUDIO', ['Adjust movement, sleep, sodium and self-reported stress.', 'Choose 14, 28, 56 or 90 days in the interface.', 'Changes approach the target with an assumed seven-day time constant.'], '''Now we move from the observed past to a hypothetical future. The scenario studio exposes four controls, using the same feature definitions as the personal model. The default example sets movement to seven thousand five hundred steps, sleep to seven and a half hours, sodium to two thousand milligrams, and stress to four. These defaults are demonstration settings, not a recommendation for any person. After selecting Simulate scenario, the server recalculates the trajectory and the contribution breakdown. Habit values move gradually from the recent seven-day averages toward the chosen targets. The seven-day adaptation time constant is an assumption, not something learned from a clinical intervention. The horizon selector changes the forecast length. This interaction makes it possible to compare hypotheses while keeping the inputs and assumptions visible.''', 'scenario'),
-('Read the band, not just the line.', '08 / PREDICTIVE UNCERTAINTY', ['Observed history, unchanged-habits baseline and scenario curve.', '95% Gaussian posterior predictive interval.', 'Model uncertainty is narrower than real-world uncertainty.'], '''The chart separates three kinds of information. The gray-green history is measured synthetic pressure. The dashed comparator holds recent habits unchanged. The solid green line represents the selected conditional scenario. Around that line, the shaded band is a ninety-five percent posterior predictive interval under the model's Gaussian assumptions. It combines coefficient uncertainty, observation noise, residual-state uncertainty, and process variance that accumulates with the horizon. This is a band for possible daily readings, not a confidence interval for a treatment benefit. It does not account for every source of measurement error, confounding, changing medication, or model misspecification. The default synthetic example predicts a lower mean under the chosen settings, but the broad interval remains visible. A single attractive point estimate should never replace that uncertainty context.''', 'chart'),
-('Explain the difference.', '09 / CONTRIBUTION BREAKDOWN', ['Feature contributions sum to the modeled scenario difference.', 'Signs come from each personal fit.', 'Correlated predictors limit causal interpretation.'], '''Below the chart, the explanation panel breaks the projected difference into four contributions. Each contribution is the fitted personal coefficient multiplied by the standardized change in that input and the adaptation fraction at the chosen horizon. Before display rounding, these values sum to the scenario difference. This is an exact explanation of this linear simulation, not a separate explanation model. The signs are not artificially constrained. With a different imported dataset, a coefficient could be small, positive, or counterintuitive. Correlated habits can make individual coefficients unstable, and unmeasured factors can confound them. The panel therefore labels them as modeled associations rather than proven effects. Reviewers can inspect the coefficients in the JSON export and reproduce the arithmetic directly from the source. Transparency is useful precisely because it exposes these limitations.''', 'evidence'),
-('Test against simpler answers.', '10 / TEMPORAL VALIDATION', ['First 76 days train; final 14 days test for each demo profile.', 'No held-out BP labels enter the fit or state update.', 'Compare with last-reading and training-mean predictors.'], '''A convincing interface is not enough. PulseTwin evaluates the model using a chronological holdout rather than a random split. For the ninety-day fixtures, the first seventy-six days train the personal model and residual state. The final fourteen days provide the evaluation labels. Those held-out pressure values never enter the fit or the state update. The model does use the observed lifestyle covariates for those days, so this is conditional prediction rather than an honest forecast of unknown future behavior. We compare mean absolute error against two simple alternatives: repeating the final training pressure and repeating the training mean. The application also reports predictive interval coverage. A dedicated test changes held-out labels and confirms the predictions remain identical, directly checking for target leakage in this evaluation path.''', 'evidence'),
-('Measured prototype outcomes.', '11 / RESULTS WITH LIMITS', ['Twin MAE: 3.01 / 3.19 / 2.81 mmHg across the three fixtures.', 'Training-mean MAE: 3.60 / 3.85 / 4.47 mmHg.', 'Synthetic data only; 14 test observations per profile.'], '''On the included synthetic fixtures, Asha has a twin mean absolute error of three point zero one millimeters of mercury, Dev has three point one nine, and Mira has two point eight one. The training-mean baselines have errors of three point six zero, three point eight five, and four point four seven respectively. The last-reading baselines are weaker on these fixtures. All fourteen held-out readings fall within the predictive interval for each profile. That does not establish reliable calibration, because fourteen examples are a tiny sample and the bands may be conservative. More importantly, the synthetic generator uses approximately linear relationships similar to the fitted model. These results demonstrate that the implementation behaves sensibly on its fixtures. They are not evidence of clinical accuracy, causal benefit, or generalization to real patients.''', None),
-('Try your own authorized fixture.', '12 / IMPORT AND EXPORT', ['Import a valid CSV and see the provenance badge change.', 'Switch among synthetic and imported observations.', 'Export raw inputs, scenario, forecasts and validation as JSON.'], '''The import workflow makes this more than a canned dashboard. In the demonstration, a supplied CSV is imported through the normal file control. The server checks the header, values, date sequence, and minimum history before accepting it. The interface changes its provenance badge to imported data, and the personal model is recalculated from those observations. Users can switch between the imported series and the synthetic profiles without losing the imported history during the current session. Export report downloads a JSON document containing the inputs, scenario settings, forecast, contributions, model version, warnings, and validation results. The separate CSV action downloads the current observations. These files can contain sensitive records if real data is imported, so the prototype is intended for synthetic or properly authorized, de-identified use. No cloud storage is involved.''', 'import'),
-('Simple architecture. Real endpoints.', '13 / SYSTEM DESIGN', ['Browser UI → FastAPI validation → NumPy model.', 'Stateless requests; no database or external AI calls.', 'Reproducible fixtures, evaluation and local artifacts.'], '''The implementation has a deliberately small architecture. A static browser application handles interaction and visualization. FastAPI serves the interface and exposes health, synthetic profile, CSV import, and analysis endpoints. Pydantic validates JSON and parsed CSV observations. NumPy computes the Bayesian fit, filtered state, scenario, and chronological evaluation. The server returns a structured report, which the browser renders and can download. There is no database, analytics service, external model provider, or paid API dependency. After package installation, the application works without external network calls. The architecture document shows both the request flow and the trust boundary. This simplicity makes the prototype easy to inspect and run, but it is not production security. Authentication, secure deployment, retention controls, and clinical governance would be required before handling real patient workflows.''', None),
-('Validation beyond a screenshot.', '14 / ENGINEERING EVIDENCE', ['14 model and API tests pass.', 'Real Chromium checks cover imports, exports and mobile layout.', 'Leakage, non-finite inputs and uncertainty behavior are tested.'], '''The repository includes fourteen automated model and API tests. They check finite forecasts, correctly ordered intervals, a zero change when habits remain fixed, state updates with additional observations, and increasing uncertainty over the horizon when inputs are fixed. Other tests reject duplicate dates, missing dates, non-finite values, out-of-range readings, insufficient history, and malformed CSV data. The API itself is exercised through a test client. Browser acceptance checks use real Chromium to load the dashboard, change a scenario and horizon, switch profiles, import and reselect data, download a report, and inspect invalid-input feedback. A mobile-width check looks for horizontal overflow, and uncaught JavaScript errors cause failure. These checks demonstrate a functional prototype workflow. They do not substitute for security review, load testing, usability research, or medical validation.''', None),
-('Boundaries are part of the product.', '15 / PRIVACY AND SAFETY', ['Synthetic fixtures; no credentials or patient records included.', 'Observations stay in browser and request memory.', 'No diagnosis, treatment recommendation or clinical certification.'], '''PulseTwin includes three deterministic synthetic profiles and no patient records. The application has no server-side persistence and makes no external AI calls. Uploaded observations travel to the local API and remain in request memory and the active browser session. A downloaded report contains its underlying observations, so exporting is a deliberate data-handling action. The prototype does not have user authentication, clinical access controls, or production hardening, and it should remain local during evaluation. Model warnings explain observational uncertainty and identify scenarios beyond the observed input range. Important variables such as medications, comorbidities, measurement timing, and kidney function are absent. Those gaps are substantive limitations, not minor disclaimers. The prototype helps inspect a hypothesis; it does not diagnose, prescribe, triage symptoms, or claim regulatory approval.''', None),
-('A credible path beyond the prototype.', '16 / ROADMAP', ['Consented longitudinal data and external evaluation.', 'Calibration, missingness, subgroup analysis and clinician review.', 'Secure device ingestion before any prospective deployment.'], '''The next step is not simply adding more visual features. A credible development path starts with consented, well-characterized longitudinal data and a preregistered evaluation plan. We would examine measurement quality, missingness, calibration, and performance across relevant subgroups. We would compare against stronger temporal baselines and test whether the residual state adds value. Clinician review would help define appropriate uses and identify failure cases. Any investigation of intervention effects would need a causal design rather than assuming regression coefficients are causal. Secure ingestion, authentication, data governance, and deletion controls must precede real patient deployment. Live device synchronization could then make the update loop more automatic. Each of these is future work. The present submission delivers a transparent, reproducible starting point whose assumptions and limits can be challenged directly.''', None),
-('Open the code. Reproduce the evidence.', '17 / REPRODUCTION AND HANDOFF', ['Python 3.12 · FastAPI · NumPy · vanilla JavaScript.', 'README, MIT license, model card, PDFs and test commands.', 'Personal details and authorized YouTube publication remain external steps.'], '''To reproduce the prototype, create a Python environment, install the pinned dependencies, and start the FastAPI application using the command in the README. The browser dashboard and API documentation are served from the same process. Run the unit tests and evaluation script to regenerate the reported metrics, and use the browser acceptance script with Chromium to check the interactive workflow. The repository includes the architecture PDF, project presentation, synthetic fixtures, model card, MIT license, captions, and this narration script. The challenge screenshot also requires accurate team and institutional information and an unlisted YouTube link. Those factual and account-dependent items must be completed honestly; this package does not invent them or claim that the contest form has been submitted. PulseTwin's contribution is a working, inspectable research prototype with reproducible evidence and explicit boundaries.''', None)
-]
+"""Version 1.1 presentation and narration source for Team Gimites."""
+SCENES = [('Personal health, simulated.',
+  'TEAM GIMITES / DIGITAL TWIN CHALLENGE 2026',
+  ['Yashwanth M · Team Leader',
+   'Kalashikam Vijay Krishna · Subiksha K · Shakthi K',
+   'PulseTwin v1.1 · Ten research workbench features'],
+  'Welcome to PulseTwin, a personal blood pressure digital twin prepared for Team Gimites. The team leader is '
+  'Yashwanth M, joined by Kalashikam Vijay Krishna, Subiksha K, and Shakthi K. This version adds ten research '
+  'features to a working, interpretable prototype. We will explore scenario comparisons, saved settings, daily '
+  'observations, data quality, trends, sensitivity, errors, uncertainty, shareable hypotheses, and printable '
+  'evidence. The central idea remains simple: daily observations should help us ask better questions about '
+  'possible futures. Every example uses synthetic data, and no clinical accuracy or treatment benefit is claimed. '
+  'This voiceover is synthesized, with captures from the running application. The code, architecture, model card, '
+  'tests, and presentation are included so reviewers can reproduce the walkthrough and inspect its assumptions.',
+  None),
+ ('A chart tells only half the story.',
+  '01 / THE PROBLEM',
+  ['Daily readings are noisy and disconnected from daily habits.',
+   'Generic averages hide individual patterns.',
+   'A useful simulation must expose its assumptions.'],
+  'Imagine a person with three months of blood pressure readings, step counts, sleep notes, dietary estimates, '
+  'and self-reported stress. A conventional chart can show a trend, but it cannot explain how these measurements '
+  'fit together for that individual. A generic wellness score often hides the relationship behind a single '
+  'number. PulseTwin explores a different interaction: make the personal model visible, let the user specify a '
+  'hypothetical scenario, and show the uncertainty next to the result. This is a research problem rather than a '
+  'promise to lower blood pressure. Many important drivers are unmeasured, and lifestyle variables can be '
+  'correlated with each other. Our design treats those limitations as part of the product. The goal is to support '
+  'informed questions, not to turn observational patterns into prescriptions.',
+  None),
+ ('One focused healthcare use case.',
+  '02 / SCOPE AND USERS',
+  ['Longitudinal cardiometabolic research and education.',
+   'Systolic blood pressure as the modeled outcome.',
+   'No diagnosis, medication advice or autonomous decisions.'],
+  'The selected use case is longitudinal cardiometabolic research and education, with systolic blood pressure as '
+  "the single modeled outcome. A researcher or an authorized user can inspect how a person's observations relate "
+  'to daily habits and explore a conditional future. We deliberately avoid a broad health score, disease '
+  'diagnosis, medication recommendations, and automated clinical decisions. A narrow outcome makes the model '
+  'easier to inspect and the prototype easier to validate. The application does not contain a physician workflow, '
+  'electronic health record integration, or a live wearable connection. Those are possible future integrations, '
+  'not features we claim today. The complete implemented loop is observation ingestion, validation, personal '
+  'fitting, residual state updating, scenario simulation, and review. Keeping this scope explicit is essential to '
+  'evaluating the submission fairly.',
+  None),
+ ('A working research workspace.',
+  '03 / DASHBOARD WALKTHROUGH',
+  ['Three synthetic profiles, each with 90 daily observations.',
+   'Current modeled SBP, scenario outcome and holdout error.',
+   'Visible provenance and research-only boundaries.'],
+  'Here is the running dashboard. The active profile is Asha, a fictional label attached to a deterministic '
+  'synthetic dataset. The profile bar states the observation count and date range. Across the top, three cards '
+  'separate current modeled systolic pressure, the chosen scenario at the selected horizon, and held-out '
+  'prediction error. The current number is a model estimate at the most recent seven-day average habits; it is '
+  'not simply the last cuff reading. The scenario number depends on the controls at the right. Prediction error '
+  'comes from a separate chronological evaluation. Keeping these three concepts distinct prevents a future '
+  'scenario from being mistaken for a measured reading or an accuracy guarantee. Notice also the persistent '
+  'research notice and the synthetic data badge. These disclosures remain part of the normal workflow.',
+  'overview'),
+ ('A new day. A reviewed update.',
+  '04 / DAILY UPDATES + DATA QUALITY',
+  ['Append the next daily record and refit the personal twin.',
+   'Review unusual readings, daily jumps and correlated inputs.',
+   'No silent deletion, imputation or correction.'],
+  'The first two new tools strengthen the observation loop. The daily update form selects the next consecutive '
+  'date automatically. Enter a systolic reading and daily habits, then add the observation. The server validates '
+  'the complete sequence before the new history replaces the active session. The model is refitted, and the '
+  'interface shows the modeled current pressure before and after the update. Updated observations remain '
+  'selectable during the session and can be exported as CSV. Alongside this, data-quality review identifies '
+  'unusual readings, large daily changes, constant predictors, and highly correlated inputs. These are '
+  'transparent engineering heuristics rather than clinical thresholds. They never silently remove or repair a '
+  'row. A clean review is not a medical certification. The purpose is to expose measurement context and weakly '
+  'identified associations before interpreting a scenario.',
+  'workbench'),
+ ('A model you can inspect.',
+  '05 / BAYESIAN PERSONALIZATION',
+  ['Four standardized habit features plus a personal intercept.',
+   'Gaussian priors stabilize small histories.',
+   'Posterior coefficients and covariance use closed-form NumPy algebra.'],
+  'The first modeling layer is Bayesian linear regression. Four standardized habit features and an intercept '
+  'describe systolic pressure. Each person gets a separate fit. There is no pretrained neural network, external '
+  'language model, or hidden population dataset. Gaussian priors regularize the coefficients so a small or '
+  'correlated history does not lead to an unconstrained fit. The posterior mean and covariance are calculated '
+  'directly using NumPy matrix operations. The prior values are illustrative engineering choices, not clinical '
+  'effect sizes copied from a trial. In particular, the model does not prove that increasing one habit will cause '
+  'a particular change in pressure. It estimates an association conditional on the recorded inputs. The '
+  'repository contains the exact feature scales, prior values, equations, noise assumptions, and limitations in '
+  'the model card.',
+  None),
+ ('Updating the twin over time.',
+  '06 / THE LATENT STATE',
+  ['Daily residuals update a scalar Kalman state.',
+   'New observations change the personal fit and current state.',
+   'Human-in-the-loop prototype; no live device synchronization.'],
+  'A static regression alone would not capture the concept of an updating twin. PulseTwin adds a scalar Kalman '
+  'filter over the residual pressure after the regression prediction. This state represents slow unobserved drift '
+  'without naming it as a specific disease mechanism. Each daily residual adjusts the current state using a '
+  'Kalman gain, while process variance expresses additional uncertainty over time. When a new history is '
+  'imported, the personal coefficients are refitted and the residual sequence is filtered again. This is a '
+  'two-stage approximation, not a joint physiological state-space inference system. The covariance does not '
+  'capture every dependency between coefficients and state. The implementation is a human-in-the-loop, '
+  'data-driven twin prototype. It provides a repeatable observation and simulation loop, while continuous sensor '
+  'synchronization and clinical feedback are explicitly future work.',
+  None),
+ ('Compare and keep useful hypotheses.',
+  '07 / COMPARISON + SCENARIO LIBRARY',
+  ['Pin a reference; compare two conditional trajectories.',
+   'Both fits use the same history, horizon and interval.',
+   'Save up to eight named settings locally; observations stay out.'],
+  'The scenario comparison tool lets a reviewer pin the current settings as a reference, change the controls, and '
+  'simulate a second possibility. Both curves are recomputed against the same active observations, horizon, and '
+  "interval level. Switching profiles recalculates the reference rather than carrying an old person's prediction "
+  'into the comparison. The displayed endpoint difference is a difference of conditional means, not an estimated '
+  'treatment effect. The adjacent library saves up to eight named settings in the current browser. An entry '
+  'contains a generic label, four hypothetical inputs, horizon, and interval level. It does not contain '
+  'observation records, profile identity, or fitted results. Load an entry to apply it to the current history, or '
+  'delete it from the library. This makes repeated experimentation convenient while keeping the data boundary '
+  'clear.',
+  'workbench'),
+ ('Choose the lens. Keep the uncertainty.',
+  '08 / ADJUSTABLE PREDICTIVE INTERVALS',
+  ['Choose 80%, 90%, 95% or 99% coverage under the model.',
+   'Forecast band and held-out coverage update together.',
+   'Changing the level never changes the predicted mean.'],
+  'The uncertainty lens now supports eighty, ninety, ninety-five, and ninety-nine percent predictive intervals. '
+  'Select a level in the scenario studio. The forecast band, legend, exported report, and held-out coverage all '
+  "update consistently. The model's predicted mean does not change. A wider band is not evidence that the model "
+  'became more accurate; it expresses a different coverage statement under the same assumptions. The band '
+  'combines coefficient uncertainty, residual-state uncertainty, fixed observation noise, and process variance '
+  'over the horizon. It still does not capture every source of confounding, measurement bias, changing '
+  'medication, or model misspecification. The uncertainty panel states the endpoint interval and its width '
+  'explicitly. Tests verify that interval widths expand with confidence while the mean stays fixed. This makes '
+  'the uncertainty control meaningful rather than a cosmetic chart setting.',
+  'chart'),
+ ('Change one input. Inspect the response.',
+  '09 / SENSITIVITY EXPLORER',
+  ['Seven target values, with other scenario settings held fixed.',
+   'Sweep only within observed and permitted input ranges.',
+   'Separate 95% coefficient intervals expose association uncertainty.'],
+  'The sensitivity explorer asks a narrower question than changing four controls together. Choose movement, '
+  'sleep, sodium, or stress. The model evaluates seven target values for that one input while holding the other '
+  'scenario settings fixed. The curve shows the projected systolic pressure at the current horizon. The sweep '
+  'stays within the intersection of observed values and permitted scenario bounds. If that intersection is empty, '
+  'the application reports that no valid sweep is available. The personal coefficient and its ninety-five percent '
+  'interval are also shown. This coefficient interval is labeled separately from the selectable predictive '
+  'interval, because they describe different quantities. Correlated or constant inputs can make coefficients '
+  'poorly identified. The sensitivity curve is therefore an inspectable association, not a recommended '
+  'intervention. Automated checks compare sweep outputs against direct scenario simulations.',
+  'trends'),
+ ('See the trend. Inspect the misses.',
+  '10 / TRENDS + ERROR DIAGNOSTICS',
+  ['Seven-day rolling means, weekly change and recent variability.',
+   'Holdout residuals, signed bias, RMSE and largest error.',
+   'Chronological fitting keeps held-out BP labels out.'],
+  'Two additional panels show information that a single accuracy number hides. Longitudinal trends plot the '
+  "seven-day rolling mean and summarize the latest week's pressure, its change from the previous week, and recent "
+  'variability. A recent linear slope is descriptive history, not an attributed cause or a forecast. Error '
+  'diagnostics show each held-out observation beside its prediction and signed residual. Positive bias means the '
+  'model tends to underpredict. Root mean squared error highlights larger misses, while maximum absolute error '
+  'exposes the worst miss in the small holdout. The evaluation still fits only on the chronological training '
+  'prefix. Held-out pressure labels do not enter the fit or state update. Held-out daily habits are known inputs, '
+  'so this remains conditional prediction. These panels make both the history and model failures easier to '
+  'question.',
+  'trends'),
+ ('Measured prototype outcomes.',
+  '11 / RESULTS WITH LIMITS',
+  ['Twin MAE: 3.01 / 3.19 / 2.81 mmHg across the three fixtures.',
+   'Training-mean MAE: 3.60 / 3.85 / 4.47 mmHg.',
+   'Synthetic data only; 14 test observations per profile.'],
+  'On the included synthetic fixtures, Asha has a twin mean absolute error of three point zero one millimeters of '
+  'mercury, Dev has three point one nine, and Mira has two point eight one. The training-mean baselines have '
+  'errors of three point six zero, three point eight five, and four point four seven respectively. The '
+  'last-reading baselines are weaker on these fixtures. All fourteen held-out readings fall within the predictive '
+  'interval for each profile. That does not establish reliable calibration, because fourteen examples are a tiny '
+  'sample and the bands may be conservative. More importantly, the synthetic generator uses approximately linear '
+  'relationships similar to the fitted model. These results demonstrate that the implementation behaves sensibly '
+  'on its fixtures. They are not evidence of clinical accuracy, causal benefit, or generalization to real '
+  'patients.',
+  None),
+ ('Share the question. Export the evidence.',
+  '12 / SETTINGS LINKS + PRINTABLE REPORTS',
+  ['Share only hypothetical settings in a validated URL fragment.',
+   'No observation history, profile identity or predictions in the link.',
+   'Print a report with provenance, outcomes, metrics and limitations.'],
+  'The shareable-settings action creates a URL containing only the hypothetical inputs, horizon, interval level, '
+  'and a schema version. It excludes observation history, profile identity, and predictions. A recipient applies '
+  'those settings to their own active data. The application validates the values and rejects malformed links, '
+  'including when a link is opened in the same tab. A local address still requires an accessible application '
+  'instance; this is not a claim of a publicly hosted demo. The printable report provides a second handoff path. '
+  'It collects the current model version, data provenance, observation period, scenario assumptions, predicted '
+  'endpoint, interval, holdout metrics, review flags, and limitations in a clean PDF-ready layout. Unlike the '
+  'settings link, a report may identify its active profile. The user should share it only with authorization.',
+  'handoff'),
+ ('Simple architecture. Real endpoints.',
+  '13 / SYSTEM DESIGN',
+  ['Browser UI → FastAPI validation → NumPy model.',
+   'Stateless requests; no database or external AI calls.',
+   'Reproducible fixtures, evaluation and local artifacts.'],
+  'The implementation has a deliberately small architecture. A static browser application handles interaction and '
+  'visualization. FastAPI serves the interface and exposes health, synthetic profile, CSV import, and analysis '
+  'endpoints. Pydantic validates JSON and parsed CSV observations. NumPy computes the Bayesian fit, filtered '
+  'state, scenario, and chronological evaluation. The server returns a structured report, which the browser '
+  'renders and can download. There is no database, analytics service, external model provider, or paid API '
+  'dependency. After package installation, the application works without external network calls. The architecture '
+  'document shows both the request flow and the trust boundary. This simplicity makes the prototype easy to '
+  'inspect and run, but it is not production security. Authentication, secure deployment, retention controls, and '
+  'clinical governance would be required before handling real patient workflows.',
+  None),
+ ('Validation beyond a screenshot.',
+  '14 / ENGINEERING EVIDENCE',
+  ['24 model and API tests pass.',
+   'Browser checks exercise all ten new workflows and the original app.',
+   'Settings privacy, daily updates, PDF output and mobile layout tested.'],
+  'The repository now includes twenty-four automated model and API tests. New checks verify that confidence '
+  'levels change widths without changing means, known linear histories produce the expected trends, and quality '
+  'flags do not remove observations. Constant and correlated predictors, empty sensitivity ranges, exact residual '
+  'metrics, and parity between sensitivity curves and direct simulations are also covered. The daily update test '
+  'confirms that an additional observation changes the personal model. Browser acceptance uses real Chromium to '
+  'exercise all ten new workflows and the original dashboard. It verifies saved settings survive reload, deletion '
+  'works, shared links omit observations, invalid links are rejected, session updates retain provenance, and a '
+  'printable PDF is produced. Mobile overflow and JavaScript errors are checked as well. These are engineering '
+  'tests, not clinical validation.',
+  None),
+ ('Boundaries are part of the product.',
+  '15 / PRIVACY AND SAFETY',
+  ['Synthetic fixtures; no credentials or patient records included.',
+   'Observations stay in browser and request memory.',
+   'No diagnosis, treatment recommendation or clinical certification.'],
+  'PulseTwin includes three deterministic synthetic profiles and no patient records. The application has no '
+  'server-side persistence and makes no external AI calls. Uploaded observations travel to the local API and '
+  'remain in request memory and the active browser session. A downloaded report contains its underlying '
+  'observations, so exporting is a deliberate data-handling action. The prototype does not have user '
+  'authentication, clinical access controls, or production hardening, and it should remain local during '
+  'evaluation. Model warnings explain observational uncertainty and identify scenarios beyond the observed input '
+  'range. Important variables such as medications, comorbidities, measurement timing, and kidney function are '
+  'absent. Those gaps are substantive limitations, not minor disclaimers. The prototype helps inspect a '
+  'hypothesis; it does not diagnose, prescribe, triage symptoms, or claim regulatory approval.',
+  None),
+ ('A credible path beyond the prototype.',
+  '16 / ROADMAP',
+  ['Consented longitudinal data and external evaluation.',
+   'Calibration, missingness, subgroup analysis and clinician review.',
+   'Secure device ingestion before any prospective deployment.'],
+  'The next step is not simply adding more visual features. A credible development path starts with consented, '
+  'well-characterized longitudinal data and a preregistered evaluation plan. We would examine measurement '
+  'quality, missingness, calibration, and performance across relevant subgroups. We would compare against '
+  'stronger temporal baselines and test whether the residual state adds value. Clinician review would help define '
+  'appropriate uses and identify failure cases. Any investigation of intervention effects would need a causal '
+  'design rather than assuming regression coefficients are causal. Secure ingestion, authentication, data '
+  'governance, and deletion controls must precede real patient deployment. Live device synchronization could then '
+  'make the update loop more automatic. Each of these is future work. The present submission delivers a '
+  'transparent, reproducible starting point whose assumptions and limits can be challenged directly.',
+  None),
+ ('Team Gimites. Reproducible by design.',
+  '17 / REPRODUCTION AND SUBMISSION',
+  ['Python 3.12 · FastAPI · NumPy · vanilla JavaScript.',
+   'Source, model card, PDFs, tests and narrated walkthrough.',
+   'College affiliation and authorized YouTube publication remain outstanding.'],
+  'To reproduce PulseTwin, create a Python environment, install the pinned dependencies, and start the FastAPI '
+  'application using the README command. The dashboard and API documentation are served by the same process. Run '
+  'the model tests and evaluation script to regenerate the evidence, and use the browser scripts with Chromium to '
+  'check the original workflow and all ten new features. This package is prepared for Team Gimites: Yashwanth M '
+  'as team leader, with Kalashikam Vijay Krishna, Subiksha K, and Shakthi K. Their names come from the supplied '
+  'registration screenshot. The institutional affiliation has not been supplied, and the required unlisted '
+  'YouTube publication still requires an authorized account. No contest submission is claimed. The contribution '
+  'is a working, inspectable research prototype whose observations, assumptions, results, and limitations can be '
+  'reproduced and challenged.',
+  None)]

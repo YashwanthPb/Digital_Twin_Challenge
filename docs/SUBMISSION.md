@@ -5,7 +5,7 @@ Source: user-provided screenshot of “Digital Twin Challenge 2026 - Prototype &
 | Required item | Prepared content | Status |
 |---|---|---|
 | Public GitHub repository link | `https://github.com/YashwanthPb/Digital_Twin_Challenge` | Published on main; public access verified |
-| Team details | Team label and repository owner in README | Legal names/membership/eligibility unverified |
+| Team details | Gimites: Yashwanth M (leader), Kalashikam Vijay Krishna, Subiksha K, Shakthi K | Names/role supplied in registration screenshot; organizer eligibility still unverified |
 | College/incubator information | Explicit not-supplied disclosure in README | Required factual detail outstanding |
 | Project title | PulseTwin | Complete |
 | Problem statement | README | Complete |
@@ -27,7 +27,7 @@ PulseTwin is an open-source personal systolic blood-pressure digital twin for re
 ## Final external steps
 
 1. Verify organizer rules, current deadline, eligibility and any specific challenge track.
-2. Enter accurate participant and college/incubator details (or an organizer-approved “not applicable” if appropriate). No affiliation has been assumed.
+2. Team names and leader are now populated from the supplied registration screenshot. College/incubator affiliation is still required (or an organizer-approved “not applicable” if appropriate). No affiliation has been assumed.
 3. Code, PDFs and MP4 are already published on `main`; public access was checked. Recheck links after any final edits.
 4. Upload the narrated 15–20 minute MP4 as **Unlisted** on an authorized YouTube account. Add the actual watch URL to README and verify it works signed out.
 5. Paste the public GitHub URL into the existing Unstop submission. Select only truthful checkboxes and complete submission through the authorized account.

@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from .model import AnalysisRequest, analyze, parse_csv
 
 ROOT = Path(__file__).resolve().parent.parent
-app = FastAPI(title='PulseTwin', version='1.0.0', description='Research-only personalized systolic blood-pressure digital twin. No clinical claims.')
+app = FastAPI(title='PulseTwin', version='1.1.0', description='Research-only personalized systolic blood-pressure digital twin. No clinical claims.')
 app.mount('/static', StaticFiles(directory=ROOT/'web'), name='static')
 
 @app.get('/')
@@ -15,7 +15,7 @@ def index():
 
 @app.get('/api/health')
 def health():
-    return {'status':'ok','model_version':'1.0.0','mode':'research','persistence':False}
+    return {'status':'ok','model_version':'1.1.0','mode':'research','persistence':False}
 
 @app.get('/api/demo/{profile}')
 def demo(profile: str):

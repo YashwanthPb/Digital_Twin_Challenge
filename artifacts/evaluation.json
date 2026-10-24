@@ -1,11 +1,12 @@
 {
   "dataset": "Synthetic fixtures only; not clinical validation",
-  "model_version": "1.0.0",
+  "model_version": "1.1.0",
   "profiles": {
     "asha": {
       "train_days": 76,
       "test_days": 14,
       "split_date": "2026-03-18",
+      "confidence": 95,
       "twin_mae": 3.01,
       "persistence_mae": 5.18,
       "mean_baseline_mae": 3.6,
@@ -88,6 +89,7 @@
       "train_days": 76,
       "test_days": 14,
       "split_date": "2026-03-18",
+      "confidence": 95,
       "twin_mae": 3.19,
       "persistence_mae": 5.49,
       "mean_baseline_mae": 3.85,
@@ -170,6 +172,7 @@
       "train_days": 76,
       "test_days": 14,
       "split_date": "2026-03-18",
+      "confidence": 95,
       "twin_mae": 2.81,
       "persistence_mae": 5.41,
       "mean_baseline_mae": 4.47,

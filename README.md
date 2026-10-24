@@ -4,7 +4,7 @@
 
 PulseTwin turns consecutive daily blood-pressure and lifestyle observations into a personalized, updating model. Explore hypothetical movement, sleep, sodium and stress scenarios, inspect predictive uncertainty, compare against simple baselines, and export the evidence behind each result.
 
-**Digital Twin Challenge 2026 · Functional research prototype · Synthetic demonstration only**
+**Team Gimites · Digital Twin Challenge 2026 · Research prototype v1.1 · Synthetic demonstration only**
 
 ![PulseTwin dashboard](artifacts/dashboard.png)
 
@@ -13,12 +13,12 @@ PulseTwin turns consecutive daily blood-pressure and lifestyle observations into
 | Item | Details |
 |---|---|
 | Project title | PulseTwin — An Interpretable Personal Blood-Pressure Digital Twin |
-| Team | PulseTwin; author name in local Git metadata: Yashwanth M; repository owner: [@YashwanthPb](https://github.com/YashwanthPb). Legal participant names, membership and eligibility have not been verified. |
+| Team | **Gimites** — **Yashwanth M** (Team Leader), **Kalashikam Vijay Krishna**, **Subiksha K**, **Shakthi K**. Names and role supplied in the team registration screenshot. Repository owner: [@YashwanthPb](https://github.com/YashwanthPb). |
 | College / incubator | Not supplied or verified. No institutional affiliation is claimed. This mandatory registration detail remains outstanding. |
 | Public repository | https://github.com/YashwanthPb/Digital_Twin_Challenge — published to `main`; public repository page and raw README, PDFs and MP4 verified accessible (HTTP 200). |
 | Architecture PDF | [System architecture](docs/architecture.pdf) |
 | Presentation PDF | [Project presentation and outcomes](docs/presentation.pdf) |
-| Demo materials | [18:53 narrated MP4](artifacts/pulsetwin-demo.mp4), [narrated demo script](docs/demo-script.md), [captions](artifacts/demo.srt), [video production notes](docs/DEMO.md) |
+| Demo materials | [18:58 narrated demo MP4](artifacts/pulsetwin-demo.mp4), [narrated demo script](docs/demo-script.md), [captions](artifacts/demo.srt), [video production notes](docs/DEMO.md) |
 | 15–20 minute unlisted YouTube demo | **Outstanding:** the rendered demo must be uploaded to an authorized YouTube account as unlisted and its actual URL added here. No upload or URL is fabricated. |
 | Open-source license | [MIT](LICENSE), covering original code, documentation and synthetic fixtures. Third-party dependencies retain their own licenses. |
 | Submission status | Technical package prepared; **not yet a complete contest submission**. See [mandatory checklist](docs/SUBMISSION.md). |
@@ -51,6 +51,7 @@ For an exact copy of the tested development environment, install `requirements-l
 .venv/bin/python scripts/evaluate.py
 # With the server running and system Chromium installed:
 .venv/bin/python scripts/browser_check.py
+.venv/bin/python scripts/browser_features.py
 ```
 
 An alternative browser installation is `python -m playwright install chromium`; set `CHROMIUM_PATH` to that browser executable if it is not `/usr/bin/chromium`. Browser automation and document generation are development-only dependencies.
@@ -64,6 +65,23 @@ An alternative browser installation is `python -m playwright install chromium`; 
 5. Switch to Dev or Mira to see different personal fits. Import `data/mira.csv` to exercise real CSV parsing.
 6. Inspect chronological holdout metrics and both baselines. Download the JSON report and CSV data for reproducibility.
 7. Try an invalid CSV: the server rejects malformed headers, missing values, invalid dates, non-finite/out-of-range inputs, duplicate days, gaps and insufficient history.
+
+## Ten research workbench features (v1.1)
+
+| # | Feature | What works |
+|---|---|---|
+| 1 | Scenario comparison | Pin a reference and compare it with the active scenario using the same history, horizon and interval. |
+| 2 | Named scenario library | Save, reload and delete up to eight local settings; no observation records are persisted. |
+| 3 | Daily twin updates | Append the next consecutive daily observation, refit the twin and export the updated history. |
+| 4 | Data-quality review | Inspect unusual readings, abrupt changes, constant predictors and correlated inputs without silently modifying data. |
+| 5 | Longitudinal trends | Seven-day rolling SBP, week-over-week change, 28-day slope and variability. |
+| 6 | Sensitivity explorer | Sweep one input over its observed range, holding other scenario targets fixed; inspect coefficient uncertainty. |
+| 7 | Error diagnostics | Holdout residual table, signed bias, RMSE and maximum absolute error. |
+| 8 | Adjustable uncertainty | 80%, 90%, 95% or 99% predictive bands and matching holdout coverage; changing the level does not change the mean. |
+| 9 | Shareable settings | A validated URL fragment contains only hypothetical settings, horizon and interval; recipients use their own data. |
+| 10 | Printable report | Print or save a clean research PDF with provenance, inputs, predictions, evaluation and limitations. |
+
+[Feature guide](docs/FEATURES.md) · [Example printable report](artifacts/sample-research-report.pdf)
 
 ## What makes this a digital twin?
 
@@ -92,7 +110,7 @@ flowchart LR
 
 Inputs: date, systolic BP (mmHg), daily steps, sleep (hours), sodium (mg/day), and self-reported stress (0–10). Requires 28–730 consecutive daily observations.
 
-The personal regression learns an intercept plus four lifestyle associations. Illustrative Gaussian priors stabilize small datasets. A scalar Kalman filter tracks residual drift. Scenario inputs approach their targets with a seven-day exponential time constant. The unchanged-habits comparator uses the most recent seven-day input averages. The 95% Gaussian posterior predictive band includes coefficient uncertainty, residual-state uncertainty, fixed observation noise and accumulating process variance.
+The personal regression learns an intercept plus four lifestyle associations. Illustrative Gaussian priors stabilize small datasets. A scalar Kalman filter tracks residual drift. Scenario inputs approach their targets with a seven-day exponential time constant. The unchanged-habits comparator uses the most recent seven-day input averages. The selectable 80%, 90%, 95% or 99% Gaussian posterior predictive band includes coefficient uncertainty, residual-state uncertainty, fixed observation noise and accumulating process variance.
 
 **No pretrained network, LLM, external training dataset or causal identification is used.** Prior means, noise and adaptation constants are engineering assumptions, not individualized clinical effect estimates. Details, equations and caveats are in the [model card](docs/MODEL_CARD.md).
 
@@ -108,12 +126,12 @@ Evaluation uses a chronological 76-day training / 14-day test split for each 90-
 
 Full predictions: [evaluation.json](artifacts/evaluation.json). The generator uses a relationship similar to the fitted model, so these results are an implementation check and may be optimistic. Perfect coverage on 14 observations does not prove calibration; the intervals may be conservative. No real-world health outcomes or clinical accuracy have been demonstrated.
 
-**Verified:** 14 model/API tests and browser acceptance checks for loading, scenario changes, horizons, profile switching, CSV import/reselection, export, invalid input and mobile overflow. [Validation report](docs/VALIDATION.md).
+**Verified:** 24 model/API tests and browser acceptance checks for loading, scenario changes, horizons, profile switching, CSV import/reselection, export, invalid input and mobile overflow. [Validation report](docs/VALIDATION.md).
 
 ## Privacy, safety and limitations
 
 - Three deterministic synthetic profiles; names are fictional labels. No patient records, secret keys or credentials are included.
-- No server-side record storage, analytics or external model requests. Uploaded data is transmitted to the local API, held in memory and returned to the current browser. Reports downloaded by the user contain the input observations.
+- No server-side record storage, analytics or external model requests. Optional named scenario settings (never observations or results) are stored in browser localStorage and can be deleted from the library. Uploaded data is transmitted to the local API, held in memory and returned to the current browser. Reports downloaded by the user contain the input observations.
 - No accounts, access control, encryption-at-rest or regulatory certification. Do not expose this prototype as a clinical service.
 - Observational confounding, self-report error, fixed noise, correlated predictors, non-causal coefficients and population differences limit interpretations.
 - Model boundaries and out-of-range scenario warnings are visible in the app. The system does not prescribe or make diagnostic decisions.

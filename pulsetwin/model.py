@@ -4,7 +4,8 @@ Effects are associations, not causal treatment estimates. Priors are illustrativ
 All validation fits use only observations before the temporal split.
 """
 from datetime import date
-from typing import Annotated
+from typing import Annotated, Literal
+from statistics import NormalDist
 import csv
 import io
 import numpy as np
@@ -31,6 +32,7 @@ class AnalysisRequest(BaseModel):
     observations: Annotated[list[Observation], Field(min_length=28, max_length=730)]
     scenario: Scenario = Field(default_factory=Scenario)
     horizon: int = Field(default=28, ge=7, le=90)
+    confidence: Literal[80, 90, 95, 99] = 95
 
     @model_validator(mode='after')
     def chronological(self):
@@ -66,7 +68,8 @@ def fit(rows):
         variance *= 1-gain
     return mean, cov, state, variance
 
-def temporal_validation(rows):
+def temporal_validation(rows, confidence=95):
+    z = NormalDist().inv_cdf((1+confidence/100)/2)
     count = min(14, max(7, len(rows)//5))
     train, test = rows[:-count], rows[-count:]
     coef, cov, state, variance = fit(train)
@@ -76,15 +79,16 @@ def temporal_validation(rows):
     spread = np.sqrt(NOISE**2 + np.einsum('ij,jk,ik->i', x,cov,x) + variance + PROCESS_VARIANCE*np.arange(1,count+1))
     error = lambda p: round(float(np.mean(np.abs(actual-p))), 2)
     return {'train_days': len(train), 'test_days': count,
-            'split_date': test[0].date.isoformat(), 'twin_mae': error(prediction),
+            'split_date': test[0].date.isoformat(), 'confidence':confidence, 'twin_mae': error(prediction),
             'persistence_mae': error(train[-1].sbp),
             'mean_baseline_mae': error(np.mean([r.sbp for r in train])),
-            'interval_coverage': round(float(np.mean(np.abs(actual-prediction)<=1.96*spread)),3),
+            'interval_coverage': round(float(np.mean(np.abs(actual-prediction)<=z*spread)),3),
             'protocol': 'Chronological holdout; coefficients and state fit on training days only. Held-out lifestyle covariates are observed, not forecast.',
             'predictions': [{'date':r.date.isoformat(), 'actual':r.sbp, 'predicted':round(float(p),2)} for r,p in zip(test,prediction)]}
 
 def analyze(req):
     rows = req.observations
+    z = NormalDist().inv_cdf((1+req.confidence/100)/2)
     coef,cov,state,state_var = fit(rows)
     baseline = np.mean([[getattr(o,k) for k in FEATURES] for o in rows[-7:]],axis=0)
     target = np.array([getattr(req.scenario,k) for k in FEATURES])
@@ -96,7 +100,7 @@ def analyze(req):
         x = np.r_[1., (baseline+(target-baseline)*fraction-CENTERS)/SCALES]
         mean = float(x @ coef + state)
         sd = float(np.sqrt(NOISE**2 + x@cov@x + state_var + PROCESS_VARIANCE*day))
-        forecast.append({'day':day,'baseline':round(current,2),'scenario':round(mean,2), 'lower':round(mean-1.96*sd,2),'upper':round(mean+1.96*sd,2)})
+        forecast.append({'day':day,'baseline':round(current,2),'scenario':round(mean,2), 'lower':round(mean-z*sd,2),'upper':round(mean+z*sd,2)})
     changes = (target-baseline)/SCALES * coef[1:] * (1-np.exp(-req.horizon/7.))
     warnings = ['Research simulation only. Not medical advice or a validated medical device.',
                 'Observational associations do not establish causal intervention effects. Do not change medication based on this tool.',
@@ -105,12 +109,15 @@ def analyze(req):
     if outside: warnings.append('Extrapolation beyond observed range: '+', '.join(outside)+'. Interpret scenarios cautiously.')
     if len(rows)<60: warnings.append('Limited history: fewer than 60 daily observations. Personal effect estimates may be unstable.')
     if any(o.sbp >= 180 for o in rows[-7:]): warnings.append('Recent very high systolic readings are present. This simulator cannot triage symptoms or replace professional assessment.')
-    return {'model_version':'1.0.0','observations':len(rows),'current':round(current,2),
+    validation = temporal_validation(rows, req.confidence)
+    from .insights import diagnostics
+    insights = diagnostics(rows, validation, coef, cov, target, baseline, req.horizon, state)
+    return {'model_version':'1.1.0','confidence':req.confidence, **insights,'observations':len(rows),'current':round(current,2),
             'delta':round(forecast[-1]['scenario']-current,2), 'forecast':forecast,
             'baseline_inputs':dict(zip(FEATURES,map(float,baseline))),
             'effects':[{'feature':k,'change':round(float(v),2),'coefficient_per_unit':round(float(coef[j+1]/SCALES[j]),6)} for j,(k,v) in enumerate(zip(FEATURES,changes))],
-            'validation':temporal_validation(rows), 'warnings':warnings,
-            'provenance':{'method':'Bayesian linear regression + scalar Kalman residual state', 'interval':'95% posterior predictive, Gaussian assumptions', 'adaptation_days':7, 'data_retention':'No server-side persistence', 'causal':False}}
+            'validation':validation, 'warnings':warnings,
+            'provenance':{'method':'Bayesian linear regression + scalar Kalman residual state', 'interval':f'{req.confidence}% posterior predictive, Gaussian assumptions', 'adaptation_days':7, 'data_retention':'No server-side persistence', 'causal':False}}
 
 def parse_csv(text):
     reader = csv.DictReader(io.StringIO(text))
