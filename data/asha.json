@@ -1,0 +1,728 @@
+{
+  "id": "asha",
+  "name": "Asha \u00b7 synthetic",
+  "description": "Generated 90-day research fixture; not a real patient.",
+  "seed": 42,
+  "observations": [
+    {
+      "date": "2026-01-01",
+      "sbp": 135.0,
+      "steps": 6466,
+      "sleep": 6.0,
+      "sodium": 3188,
+      "stress": 6.5
+    },
+    {
+      "date": "2026-01-02",
+      "sbp": 137.7,
+      "steps": 6551,
+      "sleep": 6.5,
+      "sodium": 2689,
+      "stress": 3.6
+    },
+    {
+      "date": "2026-01-03",
+      "sbp": 129.7,
+      "steps": 6763,
+      "sleep": 7.7,
+      "sodium": 3004,
+      "stress": 3.6
+    },
+    {
+      "date": "2026-01-04",
+      "sbp": 132.9,
+      "steps": 8001,
+      "sleep": 6.8,
+      "sodium": 2580,
+      "stress": 3.9
+    },
+    {
+      "date": "2026-01-05",
+      "sbp": 140.0,
+      "steps": 6662,
+      "sleep": 6.5,
+      "sodium": 3046,
+      "stress": 5.6
+    },
+    {
+      "date": "2026-01-06",
+      "sbp": 136.2,
+      "steps": 9932,
+      "sleep": 6.5,
+      "sodium": 2367,
+      "stress": 3.7
+    },
+    {
+      "date": "2026-01-07",
+      "sbp": 138.9,
+      "steps": 7361,
+      "sleep": 6.1,
+      "sodium": 2164,
+      "stress": 6.0
+    },
+    {
+      "date": "2026-01-08",
+      "sbp": 137.6,
+      "steps": 6780,
+      "sleep": 7.0,
+      "sodium": 2776,
+      "stress": 5.3
+    },
+    {
+      "date": "2026-01-09",
+      "sbp": 135.0,
+      "steps": 8414,
+      "sleep": 6.9,
+      "sodium": 2888,
+      "stress": 6.0
+    },
+    {
+      "date": "2026-01-10",
+      "sbp": 142.5,
+      "steps": 6996,
+      "sleep": 6.3,
+      "sodium": 2521,
+      "stress": 7.4
+    },
+    {
+      "date": "2026-01-11",
+      "sbp": 142.0,
+      "steps": 5445,
+      "sleep": 6.5,
+      "sodium": 2806,
+      "stress": 5.9
+    },
+    {
+      "date": "2026-01-12",
+      "sbp": 133.2,
+      "steps": 6894,
+      "sleep": 6.4,
+      "sodium": 3258,
+      "stress": 4.7
+    },
+    {
+      "date": "2026-01-13",
+      "sbp": 137.6,
+      "steps": 6010,
+      "sleep": 7.2,
+      "sodium": 2793,
+      "stress": 6.1
+    },
+    {
+      "date": "2026-01-14",
+      "sbp": 133.4,
+      "steps": 7624,
+      "sleep": 6.6,
+      "sodium": 2997,
+      "stress": 3.9
+    },
+    {
+      "date": "2026-01-15",
+      "sbp": 137.1,
+      "steps": 5167,
+      "sleep": 7.2,
+      "sodium": 2395,
+      "stress": 5.0
+    },
+    {
+      "date": "2026-01-16",
+      "sbp": 128.8,
+      "steps": 7110,
+      "sleep": 6.7,
+      "sodium": 2425,
+      "stress": 4.9
+    },
+    {
+      "date": "2026-01-17",
+      "sbp": 142.7,
+      "steps": 4425,
+      "sleep": 6.0,
+      "sodium": 2960,
+      "stress": 3.6
+    },
+    {
+      "date": "2026-01-18",
+      "sbp": 131.9,
+      "steps": 5289,
+      "sleep": 7.4,
+      "sodium": 2093,
+      "stress": 4.7
+    },
+    {
+      "date": "2026-01-19",
+      "sbp": 133.4,
+      "steps": 6445,
+      "sleep": 5.4,
+      "sodium": 2982,
+      "stress": 5.4
+    },
+    {
+      "date": "2026-01-20",
+      "sbp": 136.8,
+      "steps": 5269,
+      "sleep": 6.4,
+      "sodium": 2851,
+      "stress": 5.0
+    },
+    {
+      "date": "2026-01-21",
+      "sbp": 142.1,
+      "steps": 3737,
+      "sleep": 6.9,
+      "sodium": 2843,
+      "stress": 7.2
+    },
+    {
+      "date": "2026-01-22",
+      "sbp": 129.6,
+      "steps": 6549,
+      "sleep": 5.8,
+      "sodium": 2284,
+      "stress": 3.5
+    },
+    {
+      "date": "2026-01-23",
+      "sbp": 136.0,
+      "steps": 5435,
+      "sleep": 6.6,
+      "sodium": 1744,
+      "stress": 3.4
+    },
+    {
+      "date": "2026-01-24",
+      "sbp": 131.0,
+      "steps": 7006,
+      "sleep": 9.0,
+      "sodium": 2969,
+      "stress": 3.4
+    },
+    {
+      "date": "2026-01-25",
+      "sbp": 137.8,
+      "steps": 3630,
+      "sleep": 6.5,
+      "sodium": 2302,
+      "stress": 4.8
+    },
+    {
+      "date": "2026-01-26",
+      "sbp": 141.7,
+      "steps": 4471,
+      "sleep": 6.0,
+      "sodium": 1611,
+      "stress": 4.2
+    },
+    {
+      "date": "2026-01-27",
+      "sbp": 129.6,
+      "steps": 4931,
+      "sleep": 7.6,
+      "sodium": 2375,
+      "stress": 3.1
+    },
+    {
+      "date": "2026-01-28",
+      "sbp": 137.6,
+      "steps": 7495,
+      "sleep": 6.1,
+      "sodium": 3245,
+      "stress": 3.6
+    },
+    {
+      "date": "2026-01-29",
+      "sbp": 131.9,
+      "steps": 4965,
+      "sleep": 6.8,
+      "sodium": 2274,
+      "stress": 5.7
+    },
+    {
+      "date": "2026-01-30",
+      "sbp": 141.8,
+      "steps": 3870,
+      "sleep": 6.9,
+      "sodium": 3726,
+      "stress": 5.3
+    },
+    {
+      "date": "2026-01-31",
+      "sbp": 142.0,
+      "steps": 7248,
+      "sleep": 7.0,
+      "sodium": 2433,
+      "stress": 6.8
+    },
+    {
+      "date": "2026-02-01",
+      "sbp": 138.1,
+      "steps": 6195,
+      "sleep": 5.8,
+      "sodium": 1811,
+      "stress": 7.6
+    },
+    {
+      "date": "2026-02-02",
+      "sbp": 129.8,
+      "steps": 5815,
+      "sleep": 8.0,
+      "sodium": 1980,
+      "stress": 3.6
+    },
+    {
+      "date": "2026-02-03",
+      "sbp": 142.1,
+      "steps": 6561,
+      "sleep": 6.7,
+      "sodium": 2919,
+      "stress": 7.3
+    },
+    {
+      "date": "2026-02-04",
+      "sbp": 132.9,
+      "steps": 4381,
+      "sleep": 6.8,
+      "sodium": 2152,
+      "stress": 3.0
+    },
+    {
+      "date": "2026-02-05",
+      "sbp": 139.7,
+      "steps": 8185,
+      "sleep": 5.7,
+      "sodium": 2720,
+      "stress": 4.2
+    },
+    {
+      "date": "2026-02-06",
+      "sbp": 132.3,
+      "steps": 7936,
+      "sleep": 7.9,
+      "sodium": 2600,
+      "stress": 3.9
+    },
+    {
+      "date": "2026-02-07",
+      "sbp": 145.1,
+      "steps": 7660,
+      "sleep": 5.9,
+      "sodium": 2759,
+      "stress": 5.4
+    },
+    {
+      "date": "2026-02-08",
+      "sbp": 138.0,
+      "steps": 6528,
+      "sleep": 6.6,
+      "sodium": 1749,
+      "stress": 4.1
+    },
+    {
+      "date": "2026-02-09",
+      "sbp": 131.0,
+      "steps": 6723,
+      "sleep": 6.3,
+      "sodium": 1304,
+      "stress": 4.7
+    },
+    {
+      "date": "2026-02-10",
+      "sbp": 126.5,
+      "steps": 6532,
+      "sleep": 6.7,
+      "sodium": 1557,
+      "stress": 2.7
+    },
+    {
+      "date": "2026-02-11",
+      "sbp": 138.3,
+      "steps": 6195,
+      "sleep": 8.3,
+      "sodium": 4500,
+      "stress": 3.1
+    },
+    {
+      "date": "2026-02-12",
+      "sbp": 135.3,
+      "steps": 9456,
+      "sleep": 6.0,
+      "sodium": 2541,
+      "stress": 6.2
+    },
+    {
+      "date": "2026-02-13",
+      "sbp": 135.3,
+      "steps": 7041,
+      "sleep": 5.7,
+      "sodium": 2545,
+      "stress": 4.6
+    },
+    {
+      "date": "2026-02-14",
+      "sbp": 135.4,
+      "steps": 7543,
+      "sleep": 7.6,
+      "sodium": 2801,
+      "stress": 5.6
+    },
+    {
+      "date": "2026-02-15",
+      "sbp": 142.0,
+      "steps": 5852,
+      "sleep": 7.1,
+      "sodium": 2637,
+      "stress": 8.3
+    },
+    {
+      "date": "2026-02-16",
+      "sbp": 135.4,
+      "steps": 5519,
+      "sleep": 5.9,
+      "sodium": 3474,
+      "stress": 5.4
+    },
+    {
+      "date": "2026-02-17",
+      "sbp": 133.1,
+      "steps": 7250,
+      "sleep": 7.2,
+      "sodium": 1978,
+      "stress": 4.2
+    },
+    {
+      "date": "2026-02-18",
+      "sbp": 128.4,
+      "steps": 5488,
+      "sleep": 6.7,
+      "sodium": 2536,
+      "stress": 5.2
+    },
+    {
+      "date": "2026-02-19",
+      "sbp": 138.7,
+      "steps": 5266,
+      "sleep": 6.9,
+      "sodium": 2892,
+      "stress": 4.4
+    },
+    {
+      "date": "2026-02-20",
+      "sbp": 135.2,
+      "steps": 7357,
+      "sleep": 5.6,
+      "sodium": 3261,
+      "stress": 4.5
+    },
+    {
+      "date": "2026-02-21",
+      "sbp": 142.4,
+      "steps": 4649,
+      "sleep": 7.8,
+      "sodium": 3079,
+      "stress": 7.8
+    },
+    {
+      "date": "2026-02-22",
+      "sbp": 134.1,
+      "steps": 6951,
+      "sleep": 7.2,
+      "sodium": 3238,
+      "stress": 4.5
+    },
+    {
+      "date": "2026-02-23",
+      "sbp": 143.1,
+      "steps": 5903,
+      "sleep": 5.9,
+      "sodium": 3209,
+      "stress": 4.7
+    },
+    {
+      "date": "2026-02-24",
+      "sbp": 130.6,
+      "steps": 6813,
+      "sleep": 7.4,
+      "sodium": 1678,
+      "stress": 4.9
+    },
+    {
+      "date": "2026-02-25",
+      "sbp": 128.3,
+      "steps": 6413,
+      "sleep": 7.3,
+      "sodium": 2246,
+      "stress": 3.4
+    },
+    {
+      "date": "2026-02-26",
+      "sbp": 142.1,
+      "steps": 3826,
+      "sleep": 7.0,
+      "sodium": 3451,
+      "stress": 6.0
+    },
+    {
+      "date": "2026-02-27",
+      "sbp": 138.2,
+      "steps": 4807,
+      "sleep": 7.1,
+      "sodium": 3751,
+      "stress": 1.7
+    },
+    {
+      "date": "2026-02-28",
+      "sbp": 141.7,
+      "steps": 2968,
+      "sleep": 8.0,
+      "sodium": 2939,
+      "stress": 6.4
+    },
+    {
+      "date": "2026-03-01",
+      "sbp": 135.7,
+      "steps": 6342,
+      "sleep": 7.0,
+      "sodium": 2852,
+      "stress": 5.4
+    },
+    {
+      "date": "2026-03-02",
+      "sbp": 141.7,
+      "steps": 5112,
+      "sleep": 7.1,
+      "sodium": 3350,
+      "stress": 3.3
+    },
+    {
+      "date": "2026-03-03",
+      "sbp": 145.3,
+      "steps": 4670,
+      "sleep": 6.1,
+      "sodium": 2831,
+      "stress": 6.4
+    },
+    {
+      "date": "2026-03-04",
+      "sbp": 131.5,
+      "steps": 6880,
+      "sleep": 7.5,
+      "sodium": 3060,
+      "stress": 8.7
+    },
+    {
+      "date": "2026-03-05",
+      "sbp": 132.5,
+      "steps": 8076,
+      "sleep": 6.4,
+      "sodium": 2770,
+      "stress": 7.1
+    },
+    {
+      "date": "2026-03-06",
+      "sbp": 134.3,
+      "steps": 4526,
+      "sleep": 6.2,
+      "sodium": 2986,
+      "stress": 5.8
+    },
+    {
+      "date": "2026-03-07",
+      "sbp": 138.1,
+      "steps": 3958,
+      "sleep": 6.8,
+      "sodium": 2393,
+      "stress": 5.7
+    },
+    {
+      "date": "2026-03-08",
+      "sbp": 134.6,
+      "steps": 7900,
+      "sleep": 7.0,
+      "sodium": 3045,
+      "stress": 3.9
+    },
+    {
+      "date": "2026-03-09",
+      "sbp": 138.4,
+      "steps": 8195,
+      "sleep": 6.5,
+      "sodium": 3039,
+      "stress": 4.6
+    },
+    {
+      "date": "2026-03-10",
+      "sbp": 134.7,
+      "steps": 4997,
+      "sleep": 5.8,
+      "sodium": 1737,
+      "stress": 1.3
+    },
+    {
+      "date": "2026-03-11",
+      "sbp": 144.0,
+      "steps": 7174,
+      "sleep": 7.0,
+      "sodium": 3408,
+      "stress": 7.1
+    },
+    {
+      "date": "2026-03-12",
+      "sbp": 130.6,
+      "steps": 7696,
+      "sleep": 6.1,
+      "sodium": 2314,
+      "stress": 2.6
+    },
+    {
+      "date": "2026-03-13",
+      "sbp": 131.0,
+      "steps": 8561,
+      "sleep": 8.2,
+      "sodium": 1802,
+      "stress": 5.6
+    },
+    {
+      "date": "2026-03-14",
+      "sbp": 133.5,
+      "steps": 7391,
+      "sleep": 5.3,
+      "sodium": 3303,
+      "stress": 4.0
+    },
+    {
+      "date": "2026-03-15",
+      "sbp": 139.8,
+      "steps": 6657,
+      "sleep": 7.1,
+      "sodium": 2577,
+      "stress": 5.5
+    },
+    {
+      "date": "2026-03-16",
+      "sbp": 140.2,
+      "steps": 6871,
+      "sleep": 5.6,
+      "sodium": 3394,
+      "stress": 4.5
+    },
+    {
+      "date": "2026-03-17",
+      "sbp": 142.4,
+      "steps": 6918,
+      "sleep": 7.1,
+      "sodium": 3968,
+      "stress": 8.3
+    },
+    {
+      "date": "2026-03-18",
+      "sbp": 133.1,
+      "steps": 8121,
+      "sleep": 6.1,
+      "sodium": 2916,
+      "stress": 5.0
+    },
+    {
+      "date": "2026-03-19",
+      "sbp": 144.9,
+      "steps": 4647,
+      "sleep": 5.1,
+      "sodium": 1974,
+      "stress": 4.3
+    },
+    {
+      "date": "2026-03-20",
+      "sbp": 136.8,
+      "steps": 7589,
+      "sleep": 6.0,
+      "sodium": 2926,
+      "stress": 4.3
+    },
+    {
+      "date": "2026-03-21",
+      "sbp": 145.8,
+      "steps": 6705,
+      "sleep": 6.5,
+      "sodium": 3392,
+      "stress": 3.2
+    },
+    {
+      "date": "2026-03-22",
+      "sbp": 134.7,
+      "steps": 5936,
+      "sleep": 7.9,
+      "sodium": 2759,
+      "stress": 5.9
+    },
+    {
+      "date": "2026-03-23",
+      "sbp": 138.2,
+      "steps": 4456,
+      "sleep": 7.1,
+      "sodium": 2147,
+      "stress": 6.1
+    },
+    {
+      "date": "2026-03-24",
+      "sbp": 136.0,
+      "steps": 4799,
+      "sleep": 7.2,
+      "sodium": 2499,
+      "stress": 6.5
+    },
+    {
+      "date": "2026-03-25",
+      "sbp": 139.0,
+      "steps": 2543,
+      "sleep": 5.6,
+      "sodium": 3587,
+      "stress": 6.4
+    },
+    {
+      "date": "2026-03-26",
+      "sbp": 146.8,
+      "steps": 1500,
+      "sleep": 6.4,
+      "sodium": 4273,
+      "stress": 5.7
+    },
+    {
+      "date": "2026-03-27",
+      "sbp": 140.3,
+      "steps": 2785,
+      "sleep": 6.6,
+      "sodium": 2765,
+      "stress": 4.9
+    },
+    {
+      "date": "2026-03-28",
+      "sbp": 138.4,
+      "steps": 5407,
+      "sleep": 6.2,
+      "sodium": 3284,
+      "stress": 7.6
+    },
+    {
+      "date": "2026-03-29",
+      "sbp": 138.6,
+      "steps": 6214,
+      "sleep": 6.6,
+      "sodium": 3612,
+      "stress": 4.3
+    },
+    {
+      "date": "2026-03-30",
+      "sbp": 134.0,
+      "steps": 4987,
+      "sleep": 8.1,
+      "sodium": 2465,
+      "stress": 3.5
+    },
+    {
+      "date": "2026-03-31",
+      "sbp": 135.1,
+      "steps": 2920,
+      "sleep": 7.3,
+      "sodium": 2350,
+      "stress": 6.8
+    }
+  ]
+}

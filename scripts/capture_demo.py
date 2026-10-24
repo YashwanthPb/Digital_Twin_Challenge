@@ -1,0 +1,17 @@
+from pathlib import Path
+import os
+from playwright.sync_api import sync_playwright
+ROOT=Path(__file__).resolve().parents[1]
+with sync_playwright() as p:
+    browser=p.chromium.launch(executable_path=os.environ.get('CHROMIUM_PATH','/usr/bin/chromium'),args=['--no-sandbox'])
+    page=browser.new_page(viewport={'width':1440,'height':900},device_scale_factor=1)
+    page.goto('http://127.0.0.1:8000');page.wait_for_function("document.getElementById('current').textContent !== '—'")
+    page.screenshot(path=str(ROOT/'artifacts/demo-overview.png'))
+    page.locator('#simulator').scroll_into_view_if_needed();page.screenshot(path=str(ROOT/'artifacts/demo-chart.png'))
+    page.locator('#steps').fill('12000');page.locator('#simulate').click();page.wait_for_function("!document.getElementById('simulate').disabled")
+    page.screenshot(path=str(ROOT/'artifacts/demo-scenario.png'))
+    page.locator('#validation').scroll_into_view_if_needed();page.screenshot(path=str(ROOT/'artifacts/demo-evidence.png'))
+    page.locator('#upload').set_input_files(str(ROOT/'data/mira.csv'));page.wait_for_function("document.getElementById('data-chip').textContent === 'IMPORTED DATA'");page.wait_for_function("!document.getElementById('simulate').disabled")
+    page.evaluate('window.scrollTo(0,0)');page.screenshot(path=str(ROOT/'artifacts/demo-import.png'))
+    browser.close()
+print('Captured five actual application states for the narrated walkthrough.')
