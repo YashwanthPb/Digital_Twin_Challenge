@@ -14,7 +14,7 @@ PulseTwin turns consecutive daily blood-pressure and lifestyle observations into
 |---|---|
 | Project title | PulseTwin — An Interpretable Personal Blood-Pressure Digital Twin |
 | Team | **Gimites** — **Yashwanth M** (Team Leader), **Kalashikam Vijay Krishna**, **Subiksha K**, **Shakthi K**. Names and role supplied in the team registration screenshot. Repository owner: [@YashwanthPb](https://github.com/YashwanthPb). |
-| College / incubator | Not supplied or verified. No institutional affiliation is claimed. This mandatory registration detail remains outstanding. |
+| College | Goa Institute of Management |
 | Public repository | https://github.com/YashwanthPb/Digital_Twin_Challenge — published to `main`; public repository page and raw README, PDFs and MP4 verified accessible (HTTP 200). |
 | Architecture PDF | [System architecture](docs/architecture.pdf) |
 | Presentation PDF | [Project presentation and outcomes](docs/presentation.pdf) |
