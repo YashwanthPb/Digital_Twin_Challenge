@@ -23,3 +23,9 @@ Command: `python scripts/evaluate.py`. Full results and predictions: `artifacts/
 | Mira | 76 / 14 | 2.81 | 5.41 | 4.47 | 1.00 |
 
 All errors are mmHg. Only synthetic fixtures were evaluated. Holdout covariates are known inputs. These checks do not establish clinical safety, efficacy, causal validity, prospective accuracy, subgroup fairness, production load capacity or regulatory compliance.
+
+## Generated media and publication
+
+The presentation contains 18 pages; the architecture PDF contains 2 pages. Representative rendered PDF pages were visually inspected. FFprobe identifies H.264 1280×720 video, AAC audio and an English subtitle track in the final MP4. Duration is 1133.33 seconds (18:53). A full FFmpeg audio/video decode completed without errors.
+
+The source was pushed to the repository's `main` branch. The public repository page reports Public, and README, architecture PDF, presentation PDF and MP4 return HTTP 200 through unauthenticated HTTP requests (no explicit authorization headers). This verifies repository asset access, not a YouTube upload or Unstop submission.

@@ -15,7 +15,7 @@ PulseTwin turns consecutive daily blood-pressure and lifestyle observations into
 | Project title | PulseTwin — An Interpretable Personal Blood-Pressure Digital Twin |
 | Team | PulseTwin; author name in local Git metadata: Yashwanth M; repository owner: [@YashwanthPb](https://github.com/YashwanthPb). Legal participant names, membership and eligibility have not been verified. |
 | College / incubator | Not supplied or verified. No institutional affiliation is claimed. This mandatory registration detail remains outstanding. |
-| Public repository | Intended submission URL: https://github.com/YashwanthPb/Digital_Twin_Challenge — public accessibility must be verified before submitting. |
+| Public repository | https://github.com/YashwanthPb/Digital_Twin_Challenge — published to `main`; public repository page and raw README, PDFs and MP4 verified accessible (HTTP 200). |
 | Architecture PDF | [System architecture](docs/architecture.pdf) |
 | Presentation PDF | [Project presentation and outcomes](docs/presentation.pdf) |
 | Demo materials | [18:53 narrated MP4](artifacts/pulsetwin-demo.mp4), [narrated demo script](docs/demo-script.md), [captions](artifacts/demo.srt), [video production notes](docs/DEMO.md) |
